@@ -46,6 +46,7 @@ public class ContactService {
     }
 
     public String uploadPhoto(String id, MultipartFile file) {
+        log.info("Saving picture for user id: {}", id);
         Contact contact = getContact(id);
         String photoUrl = photoFunction.apply(id, file);
         contact.setPhotoUrl(photoUrl);
@@ -54,7 +55,7 @@ public class ContactService {
     }
 
     private final UnaryOperator<String> fileExtension = filename -> Optional.of(filename).filter(name -> name.contains("."))
-            .map(name -> "." + name.substring(filename.lastIndexOf(".") + 1)).orElse(".png");
+            .map(name -> name.substring(filename.lastIndexOf("."))).orElse(".png");
 
     private final BiFunction<String, MultipartFile, String> photoFunction = (id, image) -> {
         String filename = id + fileExtension.apply(image.getOriginalFilename());
