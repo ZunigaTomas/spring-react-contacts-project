@@ -11,7 +11,7 @@ export async function getContacts(page = 0, size = 10) {
 }
 
 export async function getContact(id) {
-    return await axios.post(`${API_URL}/${id}`);
+    return await axios.get(`${API_URL}/${id}`);
 }
 
 export async function updateContact(contact) {

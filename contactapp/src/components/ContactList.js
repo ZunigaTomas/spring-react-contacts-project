@@ -6,7 +6,7 @@ const ContactList = ({ data, currentPage, getAllContacts }) => {
     <main className='main'>
         {data?.content?.length === 0 && <div>No contacts</div>}
 
-        <ul>
+        <ul className='contact__list'>
             {data?.content?.length > 0 && data.content.map(contact => <Contact contact={contact} key={contact.id} />)}
         </ul>
 
@@ -17,7 +17,7 @@ const ContactList = ({ data, currentPage, getAllContacts }) => {
             </a>
             
             { data && [...Array(data.totalPages).keys()].map((page, index) =>
-                <a onClick={getAllContacts(page)} className={currentPage === page ? 'active' : ''} key={page}>{page + 1}</a> )}
+                <a onClick={() => getAllContacts(page)} className={currentPage === page ? 'active' : ''} key={page}>{page + 1}</a> )}
 
             <a onClick={() => getAllContacts(currentPage + 1)} className={currentPage + 1 === data.totalPages ? 'disabled' : ''}>
                 &raquo;
